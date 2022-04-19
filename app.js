@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(router);
 
-// app.use(errHandler);
+app.use(errHandler);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

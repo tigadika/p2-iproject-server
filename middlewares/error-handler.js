@@ -18,11 +18,11 @@ function errorHandler(err, req, res, next) {
       break;
     case "SequelizeUniqueConstraintError":
       err.statusCode = 400;
-      err.message = err.errors.map((err) => err.message);
+      err.message = err.errors[0].message;
       break;
     case "SequelizeValidationError": //addproduct, editOneProduct, register
       err.statusCode = 400;
-      err.message = err.errors.map((err) => err.message);
+      err.message = err.errors[0].message;
       break;
     case "PairNotFound": //findProduct, editOneProduct, deleteOneProduct
       err.statusCode = 404;

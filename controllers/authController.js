@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
-const { compareHashPassword } = require("../helpers/hash-password");
-const { createToken } = require("../helpers/json-webtoken");
+const { compareHashPassword } = require("../helpers/bcrypt");
+const { createToken } = require("../helpers/jwt");
 
 const { User } = require("../models");
 

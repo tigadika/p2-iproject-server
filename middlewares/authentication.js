@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const { readToken } = require("../helpers/json-webtoken");
+const { readToken } = require("../helpers/jwt");
 
 const authentication = async (req, res, next) => {
   try {

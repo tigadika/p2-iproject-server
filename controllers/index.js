@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const { Pair, Ticker, User, UserPair } = require("../models/index");
+const { Pair, Ticker, UserPair } = require("../models/index");
 const baseUrl = "https://indodax.com";
 
 class Controller {
@@ -36,7 +36,7 @@ class Controller {
     }
   }
 
-  static async saveRecord(req, res) {
+  static async saveRecord(req, res, next) {
     try {
       const { pairId } = req.params;
       // const { high, low, vol_idr, last, buy, sell, server_time } = req.body;

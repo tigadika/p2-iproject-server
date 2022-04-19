@@ -3,7 +3,7 @@ const { Pair, Ticker, User, UserPair } = require("../models/index");
 const baseUrl = "https://indodax.com";
 
 class Controller {
-  static async getPairId(req, res) {
+  static async getPairId(req, res, next) {
     try {
       const allPair = await Pair.findAll();
 
@@ -11,17 +11,17 @@ class Controller {
         data: allPair,
       });
     } catch (err) {
-      res.status(500).json({
-        message: "Internal Server Error",
-      });
+      next(err);
     }
   }
 
-  static async getTicker(req, res) {
+  static async getTicker(req, res, next) {
     try {
       const { pairId } = req.params;
 
       const pairName = await Pair.findByPk(pairId);
+
+      if (!pairName) throw { name: "PairNotFound" };
 
       const response = await axios.get(
         baseUrl + `/api/ticker/${pairName.name}`
@@ -32,9 +32,7 @@ class Controller {
         realTimeData: response.data,
       });
     } catch (err) {
-      res.status(500).json({
-        message: "Internal Server Error",
-      });
+      next(err);
     }
   }
 
@@ -44,6 +42,8 @@ class Controller {
       // const { high, low, vol_idr, last, buy, sell, server_time } = req.body;
 
       const pairName = await Pair.findByPk(pairId);
+
+      if (!pairName) throw { name: "PairNotFound" };
 
       const response = await axios.get(
         baseUrl + `/api/ticker/${pairName.name}`
@@ -68,10 +68,7 @@ class Controller {
         message: "Record Saved",
       });
     } catch (err) {
-      console.log(err.name);
-      res.status(500).json({
-        message: "Internal Server Error",
-      });
+      next(err);
     }
   }
 }

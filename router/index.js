@@ -7,6 +7,6 @@ const UserPair = require("./userPairRoutes");
 
 router.use("/user", auth);
 router.use("/main", main);
-// router.use("/saved", UserPair);
+router.use("/saved", UserPair);
 
 module.exports = router;
